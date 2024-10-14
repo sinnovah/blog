@@ -24,4 +24,4 @@ jobs:
 
       - name: Deploy
         run: |
-          rsync -avz -e "ssh -p ${{ secrets.PORT }}" ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:@${{ secrets.PATH }}
+          rsync -avz -e "ssh -p ${{ secrets.PORT }}" ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.PATH }}
