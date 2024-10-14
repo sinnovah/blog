@@ -19,6 +19,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Add server to known hosts
+        run: ssh-keyscan -p ${{ secrets.PORT }} ${{ secrets.SERVER }} >> ~/.ssh/known_hosts
+
       - name: Deploy
         run: |
           rsync -avz -e "ssh -p ${{ secrets.PORT }}" ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:@${{ secrets.PATH }}
