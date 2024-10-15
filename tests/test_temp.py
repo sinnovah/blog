@@ -6,6 +6,6 @@ class TemporaryTest(unittest.TestCase):
     """Temporary unit testing class that the deployment workflow can find."""
 
     def test_example(self):
-        """Temporary unit testing method that the deployment workflow can find."""
+        """Temporary unit testing method."""
         # 1 + 1 is equal to 2, test will pass
         self.assertEqual(1 + 1, 2)
