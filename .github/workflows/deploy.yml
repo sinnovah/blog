@@ -53,7 +53,7 @@ jobs:
           rsync -avz -e "ssh -p ${{ secrets.PORT }}" \
             --exclude='.git/' \
             --exclude='.github/' \
-            --exclude='.tests/' \
+            --exclude='tests/' \
             --exclude='.gitignore' \
             --exclude='readme.md' \
             --exclude='README.md' \
