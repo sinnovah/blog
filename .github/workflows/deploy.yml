@@ -31,7 +31,3 @@ jobs:
             --exclude='readme.md' \
             --exclude='requirements-dev.txt' \
             ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.PATH }}
-
-      - name: Deploy
-        run: |
-          rsync -avz -e "ssh -p ${{ secrets.PORT }}" ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.PATH }}
