@@ -1,0 +1,10 @@
+# flake8 linter configuration file
+[flake8]
+
+# Exclude files from linting
+exclude =
+    .git,
+    __pycache__,
+    __init__.py,
+    .\venv,
+    .\venv\*,
