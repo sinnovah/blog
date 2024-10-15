@@ -22,11 +22,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install flake8
           pip install -r requirements-dev.txt
 
       - name: Run flake8 linter
-        run: flake8 . --exit-zero
+        run: flake8
 
       - name: Run unit tests
         run: python -m unittest discover
@@ -54,6 +53,7 @@ jobs:
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='tests/' \
+            --exclude='.flake8' \
             --exclude='.gitignore' \
             --exclude='readme.md' \
             --exclude='README.md' \

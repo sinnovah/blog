@@ -5,9 +5,9 @@
 ## Installation
 
 - Fork this repository and clone it to your local machine.
-- This repository is configured to automatically lint, unit test, and deploy to a hosted server using GitHub Actions whenever code is pushed to the main branch (CI/CD pipeline). If you prefer not to set up a production environment, you can simply delete the ```.github/workflows/deploy.yml``` file.
+- This repository is configured to automatically lint, unit test, and deploy to a hosted server using GitHub Actions whenever code is pushed to the main branch. If you prefer not to set up a production environment, you can simply delete the ```.github/workflows/deploy.yml``` file.
 
-    However, if you'd like to set up the CI/CD pipeline, follow these steps:
+    However, if you'd like to set up the current deployment workflow, follow these steps:
     - Set up SSH keys on your hosting server, you will need to read the relevant documentation provided by your hosting provider.
     - Add the public key to your GitHub repository:
         - Go to your repo > Settings > Deploy keys.
@@ -41,10 +41,12 @@
     - For production environment:
         ```
         pip install -r requirements.txt
+        ```
+
+## Linting
+To run the linter, run the following terminal command:
+    ```flake8```
 
 ## Unit testing
 
-To run the unit tests, run the following terminal command:
-    ```
-    python -m unittest discover tests
-    ```
+To run the unit tests, run the following terminal command: ```python -m unittest discover tests```
