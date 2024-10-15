@@ -29,5 +29,6 @@ jobs:
             --exclude='.github/' \
             --exclude='.gitignore' \
             --exclude='readme.md' \
+            --exclude='README.md' \
             --exclude='requirements-dev.txt' \
             ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.PATH }}
