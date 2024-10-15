@@ -1,5 +1,5 @@
-# Lint and deploy the necessary code to the server when pushing to the main branch
-name: Deploy
+# Lint, unit test and deploy the necessary code to the server when pushing to the main branch
+name: Test & Deploy
 
 on:
   push:
