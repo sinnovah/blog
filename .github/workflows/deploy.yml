@@ -1,4 +1,4 @@
-# Deploy the code to server on push to the main branch
+# Deploy the necessary code to the server when pushing to the main branch
 name: Deploy
 
 on:
@@ -21,6 +21,16 @@ jobs:
 
       - name: Add server to known hosts
         run: ssh-keyscan -p ${{ secrets.PORT }} ${{ secrets.SERVER }} >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        run: |
+          rsync -avz -e "ssh -p ${{ secrets.PORT }}" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.gitignore' \
+            --exclude='readme.md' \
+            --exclude='requirements-dev.txt' \
+            ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.PATH }}
 
       - name: Deploy
         run: |
