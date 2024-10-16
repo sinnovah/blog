@@ -45,7 +45,6 @@
 
 - Run the following terminal command to start the blog:
     ```python app.py```
-- Open your browser and navigate to ```http://localhost:8000``` to view the blog. If you have specified a different port in the environment variables, replace ```8000``` with the port number.
 
 ## Linting
 
