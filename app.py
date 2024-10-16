@@ -1,14 +1,39 @@
 """The main entry point for the application."""
 import os
 import webbrowser
-from http.server import SimpleHTTPRequestHandler, HTTPServer
 from dotenv import load_dotenv
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Load environment variables from .env file
 load_dotenv()
 
 
-def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):
+class BlogHTTPRequestHandler(BaseHTTPRequestHandler):
+    """Handler to serve the page."""
+
+    def do_GET(self):
+        """Serve the HTML content."""
+        # Get the BLOG_NAME environment variable, default to "My Blog"
+        blog_name = os.getenv("BLOG_NAME", "My Blog")
+
+        # Read the HTML template from file
+        with open('template.html', 'r') as file:
+            html_template = file.read()
+
+        # Replace the placeholder with the actual blog name
+        html_content = html_template.replace('{{ blog_name }}', blog_name)
+
+        # Send HTTP response
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(html_content.encode('utf-8'))
+
+
+def run_development_server(
+    server_class=HTTPServer,
+    handler_class=BlogHTTPRequestHandler
+):
     """Run the server indefinitely."""
     # Port number from the environment variable, or default to 8000
     port = int(os.getenv("SERVER_PORT", 8000))
@@ -23,8 +48,16 @@ def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):
     httpd.serve_forever()
 
 
-if __name__ == "__main__":
+def run_app():
+    """
+    Run the application.
+
+    This method need to stay here so that wsgi
+    has something to call in production.
+    """
     if os.getenv("ENVIRONMENT") == "Development":
-        run()
-    else:
-        pass
+        run_development_server()
+
+
+if __name__ == "__main__":
+    run_app()
