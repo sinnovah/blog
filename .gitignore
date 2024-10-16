@@ -1,6 +1,9 @@
 # Ignore the virtual environment folder
 venv/
 
+# Ignore environment variables
+.env
+
 # Ignore macOS specific files
 .DS_Store
 
