@@ -9,7 +9,7 @@ on:
       - main
       - serve-static-files
 
-  jobs:
+jobs:
   # Linting and unit testing job
   test:
     runs-on: ubuntu-latest
