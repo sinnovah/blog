@@ -5,8 +5,9 @@ on:
   push:
     branches:
       - main
+      - serve-static-files
 
-jobs:
+  jobs:
   # Linting and unit testing job
   test:
     runs-on: ubuntu-latest
@@ -58,4 +59,4 @@ jobs:
             --exclude='readme.md' \
             --exclude='README.md' \
             --exclude='requirements-dev.txt' \
-            ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.PATH }}
+            ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.BACKEND_PATH }}
