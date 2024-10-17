@@ -1,4 +1,6 @@
 # Lint, unit test and deploy the necessary code to the server when pushing to the main branch
+# The frontend static files are first copied to the appropriate directory on the server
+# The backend code is then copied to the appropriate directory on the server (with necessary files excluded)
 name: Test & Deploy
 
 on:
@@ -30,7 +32,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover
 
-  # Deployment job
+  # Deployment job, needs the test job to run and complete successfully first
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -47,15 +49,21 @@ jobs:
       - name: Add server to known hosts
         run: ssh-keyscan -p ${{ secrets.PORT }} ${{ secrets.SERVER }} >> ~/.ssh/known_hosts
 
-      - name: Deploy
+      - name: Deploy frontend code
+        run: |
+          rsync -avz -e "ssh -p ${{ secrets.PORT }}" \
+            ./public/ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.FRONTEND_PATH }}
+
+      - name: Deploy backend code
         run: |
           rsync -avz -e "ssh -p ${{ secrets.PORT }}" \
             --exclude='.git/' \
             --exclude='.github/' \
+            --exclude='public/' \
             --exclude='tests/' \
             --exclude='.flake8' \
             --exclude='.gitignore' \
             --exclude='readme.md' \
             --exclude='README.md' \
             --exclude='requirements-dev.txt' \
-            ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.PATH }}
+            ./ ${{ secrets.USERNAME }}@${{ secrets.SERVER }}:${{ secrets.BACKEND_PATH }}

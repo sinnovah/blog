@@ -14,8 +14,9 @@
         - `SSH_PRIVATE_KEY`: Paste your private SSH key here.
         - `USERNAME`: Your hosting username.
         - `SERVER`: Your domain name (e.g., `yourawesomeblog.com`).
-        - ```PORT```: The SSH port for your server (default is `22` but sometimes hosting providers change this).
-        - ```PATH```: The path to your server directory where you want the blog to be deployed. It is recommended to use a directory that is above the `public_html` or `www` directory if you have access.
+        - `PORT`: The SSH port for your server (default is `22` but sometimes hosting providers change this).
+        - `BACKEND_PATH`: The path to your server directory where you want the app backend to be deployed. It is recommended to use a directory that is above the `public_html` or `www` directory if you have access.
+        - `FRONTEND_PATH`: The path to your server directory where you want the frontend public static files to be deployed. Likely the path to the `public_html` or `www` directory on your server.
         - Push the changes to the main GitHub branch, and the CI/CD pipeline will deploy the blog to your server.
 - Create and activate a virtual environment: Run the following in your terminal.
     - Windows:
