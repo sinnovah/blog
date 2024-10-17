@@ -58,6 +58,12 @@ class BlogHTTPRequestHandler(BaseHTTPRequestHandler):
                     self.send_header("Content-type", "image/png")
                 elif file_path.endswith('.jpg') or file_path.endswith('.jpeg'):
                     self.send_header("Content-type", "image/jpeg")
+                elif file_path.endswith('.gif'):
+                    self.send_header("Content-type", "image/gif")
+                elif file_path.endswith('.svg'):
+                    self.send_header("Content-type", "image/svg+xml")
+                elif file_path.endswith('.io'):
+                    self.send_header("Content-type", "image/x-icon")
                 else:
                     self.send_header(
                         "Content-type", "application/octet-stream"
