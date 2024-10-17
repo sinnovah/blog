@@ -1,17 +1,13 @@
 """The main entry point for the application."""
-import os
 import webbrowser
-from dotenv import load_dotenv
+from configuration import Configuration
 from http.server import HTTPServer, BaseHTTPRequestHandler
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 def get_html_content():
     """Get the HTML content from the template."""
-    # Get the BLOG_NAME environment variable, default to "My Blog"
-    blog_name = os.getenv("BLOG_NAME", "My Blog")
+    # Get the BLOG_NAME environment variable
+    blog_name = Configuration.get_blog_name()
 
     # Read the HTML template from file
     with open('template.html', 'r') as file:
@@ -40,7 +36,7 @@ def run_development_server(
     server_class=HTTPServer, handler_class=BlogHTTPRequestHandler
 ):
     """Run the development server."""
-    port = int(os.getenv("SERVER_PORT", 8000))
+    port = Configuration.get_server_port()
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f"Starting development server on port {port}...")
@@ -63,5 +59,5 @@ def run_app(environ, start_response):
 
 
 if __name__ == "__main__":
-    if os.getenv("ENVIRONMENT") == "Development":
+    if Configuration.get_environment() == "Development":
         run_development_server()

@@ -1,6 +1,9 @@
 # flake8 linter configuration file
 [flake8]
 
+# Ignore module docstring warning
+ignore = D100
+
 # Exclude files from linting
 exclude =
     .git,
