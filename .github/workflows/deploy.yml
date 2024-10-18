@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - establish-database-connection
 
 jobs:
   # Linting and unit testing job
