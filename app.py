@@ -3,6 +3,8 @@ import webbrowser
 from configuration import Configuration
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import os
+import psycopg2  # type: ignore
+from psycopg2 import OperationalError  # type: ignore
 
 
 def get_html_content():
@@ -77,10 +79,34 @@ class BlogHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(b"404 Not Found")
 
 
+def check_database_connection():
+    """Check the connection to the database."""
+    try:
+        # Establish a connection to the database
+        connection = psycopg2.connect(
+            host=Configuration.get_database_host(),
+            database=Configuration.get_database_name(),
+            user=Configuration.get_database_user(),
+            password=Configuration.get_database_password(),
+        )
+        # If the connection is successful
+        print("Connection to the database was successful.")
+        return True
+    except OperationalError as e:
+        # Handle any connection errors
+        print(f"Failed to connect to the database: {e}")
+        return False
+    finally:
+        if 'connection' in locals():
+            connection.close()  # Close the connection if it was established
+
+
 def run_development_server(
     server_class=HTTPServer, handler_class=BlogHTTPRequestHandler
 ):
     """Run the development server."""
+    # Check the database connection
+    check_database_connection()
     port = Configuration.get_server_port()
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
@@ -92,6 +118,14 @@ def run_development_server(
 
 def run_app(environ, start_response):
     """WSGI application callable for production."""
+    # Check the database connection
+    if not check_database_connection():
+        # If the connection fails, return a 500 Internal Server Error
+        status = '500 Internal Server Error'
+        headers = [('Content-type', 'text/plain')]
+        start_response(status, headers)
+        return [b"Database connection failed. Please try again later."]
+
     # Prepare HTML content
     html_content = get_html_content()
 

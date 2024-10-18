@@ -1,7 +1,7 @@
 # Lint, unit test and deploy the necessary code to the server when pushing to the main branch
 # The frontend static files are first copied to the appropriate directory on the server
 # The backend code is then copied to the appropriate directory on the server (with necessary files excluded)
-name: Test & Deploy
+name: Tests
 
 on:
   push:
