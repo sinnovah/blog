@@ -3,4 +3,9 @@
 # Linting tools
 flake8>=7.0.0,<8.0.0
 flake8-docstrings>=1.7.0,<2.0.0
+
+# Manages environment variables
 python-dotenv>=1.0.1,<2.0.0
+
+# PostgreSQL database adapter
+psycopg2>=2.9.1,<3.0.0
